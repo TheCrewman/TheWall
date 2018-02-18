@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- <link href="HomeTemplate.css" type="text/css" rel="stylesheet"/> -->
+    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" type="text/css" rel="stylesheet">
+    <title>TheWall</title>
+  </head>
+  <body>
+    <div name="main_box" id="main_box">
+      <ul>
+        <li>
+          <a href="#http_connections">HTTP connections</a>
+        </li>
+        <li>
+          <a href="#smashed_ads">Smashed Ads</a>
+        </li>
+
+        <div align="right">
+          <button name="refresh_btn" id="refresh_btn">Refresh</button>
+          <input type="checkbox" name="auto_refresh" id="auto_refresh"/><label>Refresh automatically</label>
+        </div>
+      </ul>
+
+      <div class="feature_box" name="http_connections" id="http_connections">
+        <div align="right">
+          <button name="check_new_hosts_btn" id="check_new_hosts_btn">Check for new hosts</button>
+        </div>
+        <br/>
+
+        <div class="feature_results" name="http_connections_content" id="http_connections_content">
+          <div name="src_ips" id="src_ips"></div>
+        </div>
+      </div>
+
+      <div class="feature_box" name="smashed_ads" id="smashed_ads">
+        <label>Cerca: </label>
+        <input type="text" class="finder" name="url_finder" id="url_finder"/>
+        <input type="checkbox" name="case_sensitive" id="case_sensitive" checked/><label>Case sensitive</label>
+        <br/><br/>
+        <div class="feature_results" name="smashed_ads_content" id="smashed_ads_content"></div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="js/webpanel.js"></script>
+
+  </body>
+</html>
