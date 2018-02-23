@@ -1,15 +1,26 @@
 <?php
+$db = new PDO("sqlite:/home/pi/TheWall/logs/db/http_connections.db");
 
-  $log_file = fopen("/home/pi/TheWall/logs/http_connections.log", "r");
-  $log_content = fread($log_file, filesize("/home/pi/TheWall/logs/http_connections.log"));
-  fclose($log_file);
-
-  $http_conns = explode("\n", $log_content);
-
-  for ($i = 0; $i < count($http_conns) - 1; $i++)
+$all_logs = $db->query("SELECT * FROM logs");
+foreach ($all_logs as $single_log)
+{
+  if (($single_log["Source_hostname"] != "") && ($single_log["Destination_hostname"] != ""))
   {
-    echo $http_conns[$i]."<br/>";
+    echo "[".$single_log["Date"]." ".$single_log["Time"]."] ".$single_log["Source_IP"]." (".$single_log["Source_hostname"].") --> ".$single_log["Destination_IP"]." (".$single_log["Destination_hostname"].")<br/>";
   }
+  else if (($single_log["Source_hostname"] != "") && ($single_log["Destination_hostname"] == ""))
+  {
+    echo "[".$single_log["Date"]." ".$single_log["Time"]."] ".$single_log["Source_IP"]." (".$single_log["Source_hostname"].") --> ".$single_log["Destination_IP"]."<br/>";
+  }
+  else if (($single_log["Source_hostname"] == "") && ($single_log["Destination_hostname"] != ""))
+  {
+    echo "[".$single_log["Date"]." ".$single_log["Time"]."] ".$single_log["Source_IP"]." --> ".$single_log["Destination_IP"]." (".$single_log["Destination_hostname"].")<br/>";
+  }
+  else if (($single_log["Source_hostname"] == "") && ($single_log["Destination_hostname"] == ""))
+  {
+    echo "[".$single_log["Date"]." ".$single_log["Time"]."] ".$single_log["Source_IP"]." --> ".$single_log["Destination_IP"]."<br/>";
+  }
+}
 
-  echo $http_conns[count($http_conns) - 1];
+$db = null;
 ?>
