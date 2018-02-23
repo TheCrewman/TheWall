@@ -13,7 +13,7 @@ class AdSmasher(object):
         whitelist.close()
 
         blacklist = open("features/adsmasher/blacklist.conf", "rb")
-        self._blackilist_content = blacklist.readlines()
+        self._blacklist_content = blacklist.readlines()
         blacklist.close()
 
         self._tmp_list = []
@@ -27,7 +27,7 @@ class AdSmasher(object):
         if scapy_packet.haslayer(DNS):
             requested_host = scapy_packet[DNS][DNSQR].qname[:len(scapy_packet[DNS][DNSQR].qname) - 1]
 
-            if requested_host + "\n" in self._blackilist_content and "#%s" % (requested_host + "\n") not in self._blackilist_content and requested_host not in self._whitelist_content:
+            if requested_host + "\n" in self._blacklist_content and "#%s" % (requested_host + "\n") not in self._blacklist_content and requested_host not in self._whitelist_content:
                 cursor = self._db_connector.execute("SELECT Counter FROM logs WHERE Blacklisted_URL = \"%s\"" % (requested_host))
 
                 for row in cursor:
